@@ -30,7 +30,7 @@ const Age = () => {
       notEmptyMonth: isNaN(monthValue),
       notEmptyYear: isNaN(yearValue),
       dayValid: dayValue > 31 || dayValue < 0,
-      monthValid: monthValue > 12 || monthValue < 0,
+      monthValid: monthValue > 12 || monthValue < 1,
       yearValid: yearValue > 2022 || yearValue < 1900,
     };
 
