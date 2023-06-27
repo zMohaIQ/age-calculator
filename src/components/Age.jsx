@@ -19,6 +19,22 @@ const Age = () => {
     yearValid: false,
   });
 
+  const getDaysInMonth = (month, year) => {
+    return new Date(year, month, 0).getDate();
+  };
+
+  const handleMonthChange = () => {
+    const selectedMonth = parseInt(monthRef.current.value);
+    const selectedYear = parseInt(yearRef.current.value);
+
+    const maxDay = getDaysInMonth(selectedMonth, selectedYear);
+
+    const currentDay = parseInt(dayRef.current.value);
+    if (currentDay > maxDay) {
+      dayRef.current.value = maxDay;
+    }
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     const dayValue = parseInt(dayRef.current.value);
@@ -29,7 +45,7 @@ const Age = () => {
       notEmptyDay: isNaN(dayValue),
       notEmptyMonth: isNaN(monthValue),
       notEmptyYear: isNaN(yearValue),
-      dayValid: dayValue > 31 || dayValue < 0,
+      dayValid: dayValue > 31 || dayValue < 1,
       monthValid: monthValue > 12 || monthValue < 1,
       yearValid: yearValue > 2022 || yearValue < 1900,
     };
@@ -113,6 +129,7 @@ const Age = () => {
                     ? "border"
                     : ""
                 }
+                onChange={handleMonthChange}
               />
               <small>
                 {formErrors.notEmptyDay && "This field is required"}
@@ -144,6 +161,7 @@ const Age = () => {
                     ? "border"
                     : ""
                 }
+                onChange={handleMonthChange}
               />
               <small>
                 {formErrors.notEmptyMonth && "This field is required"}
